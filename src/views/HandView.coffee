@@ -22,5 +22,7 @@ class window.HandView extends Backbone.View
     new AppView(model: new App()).$el.appendTo 'body'
     
 
+
+    
     
 

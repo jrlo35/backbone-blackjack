@@ -7,7 +7,14 @@ class window.Hand extends Backbone.Collection
     @add(@deck.pop())#add to hand
     if @minScore() > 21
       @trigger 'bust', @
+  
+  stay: ->
+    console.log(@models)
+
+    #if(@minScore()<17)
     
+    @models[0].flip() 
+    #@trigger 'stay', @
 
   hasAce: -> @reduce (memo, card) ->
     memo or card.get('value') is 1
