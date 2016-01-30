@@ -18,4 +18,9 @@ class window.HandView extends Backbone.View
 
   bust: ->
     alert "You have busted"
+    $('body div').detach()
+    new AppView(model: new App()).$el.appendTo 'body'
+    
+
+    
 
