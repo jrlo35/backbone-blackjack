@@ -4,20 +4,20 @@ class window.Hand extends Backbone.Collection
   initialize: (array, @deck, @isDealer) ->
    
   hit: ->
-    @add(@deck.pop())#add to hand
+    popped = @deck.pop()
+    @add(popped)#add to hand
     if @minScore() > 21
       @trigger 'bust', @
+    return popped
   
   stay: ->
-    @models[0].flip() 
-    if @minScore() < 17 then  @add(@deck.pop())
-    if @minScore() < 17 then  @add(@deck.pop())
-    if @minScore() < 17 then  @add(@deck.pop())
-    if @minScore() < 17 then  @add(@deck.pop())
-    if @minScore() < 17 then  @add(@deck.pop())
-    if @minScore() < 17 then  @add(@deck.pop())
-    if @minScore() > 21 then  @trigger 'dealerBust', @ 
-    else @trigger 'compareScore', @
+    if not @models[0].get 'revealed'
+      @models[0].flip() 
+    if @scores() < 17 then  @add(@deck.pop())
+    if @scores() < 17 then  @stay() 
+    else 
+      if @minScore() > 21 then  @trigger 'dealerBust', @ 
+      else @trigger 'compareScore', @
     
 
   hasAce: -> @reduce (memo, card) ->

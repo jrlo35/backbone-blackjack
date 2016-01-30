@@ -29,8 +29,16 @@ class window.HandView extends Backbone.View
     new AppView(model: new App()).$el.appendTo 'body'
 
   compareScore: ->
-    alert "check scores"
-    console.log(@collection.scores()) 
+    
+    console.log(@collection)
+    player_Score = $('.player-hand-container .score').html()
+
+    dealer_Score = @collection.scores()[0]
+    if player_Score> dealer_Score then alert "You Win!"
+    if dealer_Score > player_Score then alert "You Lose."
+    if dealer_Score == player_Score then alert "Push"
+    $('body div').detach()
+    new AppView(model: new App()).$el.appendTo 'body' 
     #if playerScore > dealerScore -alert player wins
     #if dealerScore > playerScore -alert you lose
     #if playerScore === dealerScore -alert 'push'
