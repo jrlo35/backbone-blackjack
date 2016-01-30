@@ -9,12 +9,16 @@ class window.Hand extends Backbone.Collection
       @trigger 'bust', @
   
   stay: ->
-    console.log(@models)
-
-    #if(@minScore()<17)
-    
     @models[0].flip() 
-    #@trigger 'stay', @
+    if @minScore() < 17 then  @add(@deck.pop())
+    if @minScore() < 17 then  @add(@deck.pop())
+    if @minScore() < 17 then  @add(@deck.pop())
+    if @minScore() < 17 then  @add(@deck.pop())
+    if @minScore() < 17 then  @add(@deck.pop())
+    if @minScore() < 17 then  @add(@deck.pop())
+    if @minScore() > 21 then  @trigger 'dealerBust', @ 
+    else @trigger 'compareScore', @
+    
 
   hasAce: -> @reduce (memo, card) ->
     memo or card.get('value') is 1
@@ -28,6 +32,10 @@ class window.Hand extends Backbone.Collection
     # The scores are an array of potential scores.
     # Usually, that array contains one element. That is the only score.
     # when there is an ace, it offers you two scores - the original score, and score + 10.
-    [@minScore(), @minScore() + 10 * @hasAce()]
+    score = [@minScore(), @minScore() + 10 * @hasAce()]
+    if score[1] > 21 then finalScore = [score[0]]
+    if score[1] < 22 then finalScore = [score[1]]
+    return finalScore
+
 
 
