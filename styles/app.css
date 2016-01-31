@@ -1,16 +1,49 @@
-.card {
+body {
+  background-image: url('../img/felt (1).png');
+}
+
+div .card {
   float: left;
   border: solid 1px black;
   width: 100px;
   border-radius: 5px;
   height: 140px;
   margin-right: 20px;
+  font-weight: bold;
+  background-color: white;
 }
 
 .covered {
-  background-color: black;
+  background-image: url('../img/card-back.png');
+  background-size: cover;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .hand {
   overflow: auto;
+}
+img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+button {
+ background-color: red;
+ border-radius: 50%;
+ border-style: dashed;
+ border-color: gold;
+ border-width: 5px;
+ width: 50px;
+ height: 50px;
+ font-weight: bold;
+ font-size: 12px;
+}
+.total {
+  width: 150px;
+  background-color: lightblue;
+  border-radius: 25px;
+  text-align: center;
+  margin-top: 30px;
 }

@@ -5,9 +5,12 @@ class window.Hand extends Backbone.Collection
    
   hit: ->
     popped = @deck.pop()
-    @add(popped)#add to hand
+    @add(popped)
     if @minScore() > 21
-      @trigger 'bust', @
+      currentthis = @
+      setTimeout -> 
+        currentthis.trigger 'bust', currentthis
+      ,500
     return popped
   
   stay: ->
@@ -15,10 +18,20 @@ class window.Hand extends Backbone.Collection
       @models[0].flip() 
     if @scores() < 17 then  @add(@deck.pop())
     if @scores() < 17 then  @stay() 
-    else 
-      if @minScore() > 21 then  @trigger 'dealerBust', @ 
-      else @trigger 'compareScore', @
-    
+    else
+      currentthis = @
+      setTimeout ->
+        if currentthis.minScore() > 21
+          currentthis.trigger 'dealerBust', currentthis
+        else currentthis.trigger 'compareScore', currentthis
+      ,500
+      
+  bet: ->
+    @trigger 'bet', @ 
+
+  dealerFlip: ->
+    @trigger 'dealerFlip', @
+    console.log('hi')
 
   hasAce: -> @reduce (memo, card) ->
     memo or card.get('value') is 1
